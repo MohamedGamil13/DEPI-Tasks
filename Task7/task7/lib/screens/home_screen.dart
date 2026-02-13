@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfffafafa),
       appBar: AppBar(
+        backgroundColor: Color(0xfffafafa),
         title: Text(
           'Food Delivery',
           style: TextStyle(fontSize: 24, fontWeight: .bold),
