@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_todo_app/controllers/notes_list_controller.dart';
+import 'package:simple_todo_app/models/note_model.dart';
+
+class CustomButton extends StatelessWidget {
+  const CustomButton({
+    super.key,
+    required this.titleController,
+    required this.dateController,
+    required this.selectedCategory,
+  });
+  final TextEditingController titleController;
+  final TextEditingController dateController;
+  final NoteCategory selectedCategory;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.black,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        onPressed: () {
+          context.read<NotesListController>().addNote(
+            NoteModel(
+              title: titleController.text,
+              subtitle: '12:42 PM',
+              dateTime: DateFormat('d/M/yyyy').parse(dateController.text),
+              category: selectedCategory,
+            ),
+          );
+          Navigator.pop(context);
+        },
+        child: const Text("Save"),
+      ),
+    );
+  }
+}
