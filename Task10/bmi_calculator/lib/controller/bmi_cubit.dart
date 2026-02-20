@@ -1,49 +1,56 @@
 import 'package:bloc/bloc.dart';
 import 'package:bmi_calculator/models/user_model.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
 part 'bmi_state.dart';
 
 class BmiCubit extends Cubit<BmiState> {
   BmiCubit()
     : super(
-        BmiState(
+        const BmiState(
           UserModel(gender: Gender.male, age: 20, weightKG: 78, heightCM: 175),
         ),
       );
-  void addWeight() {
-    state.userModel.weightKG++;
 
-    emit(BmiState(state.userModel));
+  void addWeight() {
+    emit(
+      BmiState(
+        state.userModel.copyWith(weightKG: state.userModel.weightKG + 1),
+      ),
+    );
   }
 
   void subWeight() {
-    state.userModel.weightKG--;
-    emit(BmiState(state.userModel));
+    emit(
+      BmiState(
+        state.userModel.copyWith(weightKG: state.userModel.weightKG - 1),
+      ),
+    );
   }
 
   void addAge() {
-    state.userModel.age++;
-    emit(BmiState(state.userModel));
+    emit(BmiState(state.userModel.copyWith(age: state.userModel.age + 1)));
   }
 
   void subAge() {
-    state.userModel.age--;
-    emit(BmiState(state.userModel));
+    emit(BmiState(state.userModel.copyWith(age: state.userModel.age - 1)));
   }
 
   void setHeight(double value) {
-    state.userModel.heightCM = value;
-    emit(BmiState(state.userModel));
+    emit(BmiState(state.userModel.copyWith(heightCM: value)));
   }
 
   void toggleGender() {
-    switch (state.userModel.gender) {
-      case Gender.male:
-        state.userModel.gender = Gender.female;
-      case Gender.female:
-        state.userModel.gender = Gender.male;
-    }
-    emit(BmiState(state.userModel));
+    final newGender = state.userModel.gender == Gender.male
+        ? Gender.female
+        : Gender.male;
+    emit(BmiState(state.userModel.copyWith(gender: newGender)));
+  }
+
+  void calculateBMI() {
+    final bmi =
+        state.userModel.heightCM /
+        (state.userModel.weightKG * state.userModel.weightKG);
+    emit(BmiState(state.userModel.copyWith(bmi: bmi)));
   }
 }

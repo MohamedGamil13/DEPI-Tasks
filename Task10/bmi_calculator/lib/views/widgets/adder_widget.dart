@@ -5,8 +5,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AdderWidget extends StatelessWidget {
   const AdderWidget({super.key, required this.title, required this.isAge});
+
   final String title;
   final bool isAge;
+
+  void _onAdd(BuildContext context) {
+    isAge
+        ? context.read<BmiCubit>().addAge()
+        : context.read<BmiCubit>().addWeight();
+  }
+
+  void _onSub(BuildContext context) {
+    isAge
+        ? context.read<BmiCubit>().subAge()
+        : context.read<BmiCubit>().subWeight();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,26 +33,25 @@ class AdderWidget extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          BlocBuilder<BmiCubit, BmiState>(
-            builder: (context, state) {
-              return Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: .w400,
-                  fontSize: 17.6,
-                  color: AppContants.kbuttonColor,
-                ),
-              );
-            },
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 17.6,
+              color: AppContants.kbuttonColor,
+            ),
           ),
           BlocBuilder<BmiCubit, BmiState>(
+            buildWhen: (previous, current) => isAge
+                ? previous.userModel.age != current.userModel.age
+                : previous.userModel.weightKG != current.userModel.weightKG,
             builder: (context, state) {
               return Text(
                 isAge
                     ? state.userModel.age.toString()
                     : state.userModel.weightKG.toString(),
                 style: const TextStyle(
-                  fontWeight: .w700,
+                  fontWeight: FontWeight.w700,
                   fontSize: 58,
                   color: AppContants.kpraimaryColor,
                 ),
@@ -49,40 +62,13 @@ class AdderWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Row(
-                mainAxisAlignment: .spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      isAge
-                          ? context.read<BmiCubit>().subAge()
-                          : context.read<BmiCubit>().subWeight();
-                    },
-                    child: Container(
-                      height: 34,
-                      width: 34,
-                      decoration: const BoxDecoration(
-                        color: AppContants.kbuttonColor,
-                        shape: .circle,
-                      ),
-                      child: const Icon(Icons.remove, color: Colors.white),
-                    ),
+                  _AdderButton(
+                    icon: Icons.remove,
+                    onTap: () => _onSub(context),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      isAge
-                          ? context.read<BmiCubit>().addAge()
-                          : context.read<BmiCubit>().addWeight();
-                    },
-                    child: Container(
-                      height: 34,
-                      width: 34,
-                      decoration: const BoxDecoration(
-                        color: AppContants.kbuttonColor,
-                        shape: .circle,
-                      ),
-                      child: const Icon(Icons.add, color: Colors.white),
-                    ),
-                  ),
+                  _AdderButton(icon: Icons.add, onTap: () => _onAdd(context)),
                 ],
               ),
             ),
@@ -93,11 +79,25 @@ class AdderWidget extends StatelessWidget {
   }
 }
 
-// font-family: Inter;
-// font-weight: 700;
-// font-style: Bold;
-// font-size: 57.39px;
-// leading-trim: NONE;
-// line-height: 100%;
-// letter-spacing: 0%;
-// text-align: center;
+class _AdderButton extends StatelessWidget {
+  const _AdderButton({required this.icon, required this.onTap});
+
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 34,
+        width: 34,
+        decoration: const BoxDecoration(
+          color: AppContants.kbuttonColor,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(icon, color: Colors.white),
+      ),
+    );
+  }
+}

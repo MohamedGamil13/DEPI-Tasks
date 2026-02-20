@@ -4,4 +4,6 @@ abstract class AppContants {
   static const Color kpraimaryColor = Color(0xff6C63FF);
   static const Color kScaffoldColor = Color(0xffF4F3FF);
   static const Color kbuttonColor = Color(0xff081854);
+  static const double kMinHeight = 50;
+  static const double kMaxHeight = 300;
 }

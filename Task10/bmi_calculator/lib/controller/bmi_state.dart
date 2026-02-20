@@ -1,7 +1,10 @@
 part of 'bmi_cubit.dart';
 
-@immutable
-class BmiState {
+class BmiState extends Equatable {
   final UserModel userModel;
+
   const BmiState(this.userModel);
+
+  @override
+  List<Object?> get props => [userModel];
 }

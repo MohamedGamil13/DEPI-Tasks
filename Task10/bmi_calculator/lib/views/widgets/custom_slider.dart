@@ -8,27 +8,27 @@ class CustomSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BmiCubit, BmiState>(
-      builder: (context, state) {
-        final height = state.userModel.heightCM;
+    return SliderTheme(
+      data: SliderTheme.of(
+        context,
+      ).copyWith(showValueIndicator: ShowValueIndicator.onDrag),
+      child: BlocBuilder<BmiCubit, BmiState>(
+        buildWhen: (previous, current) =>
+            previous.userModel.heightCM != current.userModel.heightCM,
+        builder: (context, state) {
+          final height = state.userModel.heightCM;
 
-        return SliderTheme(
-          data: SliderTheme.of(
-            context,
-          ).copyWith(showValueIndicator: ShowValueIndicator.onDrag),
-          child: Slider(
+          return Slider(
             value: height,
-            onChanged: (val) {
-              context.read<BmiCubit>().setHeight(val);
-            },
+            onChanged: (val) => context.read<BmiCubit>().setHeight(val),
             min: 50,
             max: 300,
             divisions: 250,
             label: height.round().toString(),
             activeColor: AppContants.kpraimaryColor,
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

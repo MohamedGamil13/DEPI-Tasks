@@ -9,7 +9,7 @@ class GenderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 150,
-      width: 360,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -20,7 +20,7 @@ class GenderWidget extends StatelessWidget {
           Text(
             'Gender',
             style: TextStyle(
-              fontWeight: .w400,
+              fontWeight: FontWeight.w400,
               fontSize: 17.6,
               color: AppContants.kbuttonColor,
             ),

@@ -9,26 +9,28 @@ class GenderToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BmiCubit, BmiState>(
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            context.read<BmiCubit>().toggleGender();
-          },
-          child: Container(
-            width: 220,
-            height: 60,
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: const Color(0xffF4F3FF),
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Stack(
+    return GestureDetector(
+      onTap: () => context.read<BmiCubit>().toggleGender(),
+      child: Container(
+        width: 220,
+        height: 60,
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: const Color(0xffF4F3FF),
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: BlocBuilder<BmiCubit, BmiState>(
+          buildWhen: (previous, current) =>
+              previous.userModel.gender != current.userModel.gender,
+          builder: (context, state) {
+            final isMale = state.userModel.gender == Gender.male;
+
+            return Stack(
               children: [
                 AnimatedAlign(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
-                  alignment: state.userModel.gender == Gender.male
+                  alignment: isMale
                       ? Alignment.centerLeft
                       : Alignment.centerRight,
                   child: AnimatedContainer(
@@ -41,40 +43,46 @@ class GenderToggle extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                /// Texts
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Male",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: state.userModel.gender == Gender.male ? Colors.white : Colors.black54,
-                          ),
-                        ),
-                      ),
+                    _GenderLabel(
+                      title: Gender.male.displayName,
+                      isSelected: isMale,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          "Female",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: state.userModel.gender == Gender.female ? Colors.white : Colors.black54,
-                          ),
-                        ),
-                      ),
+                    _GenderLabel(
+                      title: Gender.female.displayName,
+                      isSelected: !isMale,
                     ),
                   ],
                 ),
               ],
-            ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _GenderLabel extends StatelessWidget {
+  const _GenderLabel({required this.title, required this.isSelected});
+
+  final String title;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: isSelected ? Colors.white : Colors.black54,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
