@@ -8,7 +8,7 @@ class BmiCubit extends Cubit<BmiState> {
   BmiCubit()
     : super(
         BmiState(
-          UserModel(gender: 'Male', age: 20, weightKG: 78, heightCM: 175),
+          UserModel(gender: Gender.male, age: 20, weightKG: 78, heightCM: 175),
         ),
       );
   void addWeight() {
@@ -29,6 +29,21 @@ class BmiCubit extends Cubit<BmiState> {
 
   void subAge() {
     state.userModel.age--;
+    emit(BmiState(state.userModel));
+  }
+
+  void setHeight(double value) {
+    state.userModel.heightCM = value;
+    emit(BmiState(state.userModel));
+  }
+
+  void toggleGender() {
+    switch (state.userModel.gender) {
+      case Gender.male:
+        state.userModel.gender = Gender.female;
+      case Gender.female:
+        state.userModel.gender = Gender.male;
+    }
     emit(BmiState(state.userModel));
   }
 }

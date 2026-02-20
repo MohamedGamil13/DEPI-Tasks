@@ -23,7 +23,11 @@ class AdderWidget extends StatelessWidget {
             builder: (context, state) {
               return Text(
                 title,
-                style: const TextStyle(fontWeight: .w400, fontSize: 17.6),
+                style: const TextStyle(
+                  fontWeight: .w400,
+                  fontSize: 17.6,
+                  color: AppContants.kbuttonColor,
+                ),
               );
             },
           ),
@@ -42,42 +46,45 @@ class AdderWidget extends StatelessWidget {
             },
           ),
           Expanded(
-            child: Row(
-              mainAxisAlignment: .spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    isAge
-                        ? context.read<BmiCubit>().subAge()
-                        : context.read<BmiCubit>().subWeight();
-                  },
-                  child: Container(
-                    height: 34,
-                    width: 34,
-                    decoration: const BoxDecoration(
-                      color: AppContants.kbuttonColor,
-                      shape: .circle,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                mainAxisAlignment: .spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      isAge
+                          ? context.read<BmiCubit>().subAge()
+                          : context.read<BmiCubit>().subWeight();
+                    },
+                    child: Container(
+                      height: 34,
+                      width: 34,
+                      decoration: const BoxDecoration(
+                        color: AppContants.kbuttonColor,
+                        shape: .circle,
+                      ),
+                      child: const Icon(Icons.remove, color: Colors.white),
                     ),
-                    child: const Icon(Icons.remove, color: Colors.white),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    isAge
-                        ? context.read<BmiCubit>().addAge()
-                        : context.read<BmiCubit>().addWeight();
-                  },
-                  child: Container(
-                    height: 34,
-                    width: 34,
-                    decoration: const BoxDecoration(
-                      color: AppContants.kbuttonColor,
-                      shape: .circle,
+                  GestureDetector(
+                    onTap: () {
+                      isAge
+                          ? context.read<BmiCubit>().addAge()
+                          : context.read<BmiCubit>().addWeight();
+                    },
+                    child: Container(
+                      height: 34,
+                      width: 34,
+                      decoration: const BoxDecoration(
+                        color: AppContants.kbuttonColor,
+                        shape: .circle,
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white),
                     ),
-                    child: const Icon(Icons.add, color: Colors.white),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
