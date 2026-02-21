@@ -48,9 +48,8 @@ class BmiCubit extends Cubit<BmiState> {
   }
 
   void calculateBMI() {
-    final bmi =
-        state.userModel.heightCM /
-        (state.userModel.weightKG * state.userModel.weightKG);
+    final heightM = state.userModel.heightCM / 100;
+    final bmi = (state.userModel.weightKG) / (heightM * heightM);
     emit(BmiState(state.userModel.copyWith(bmi: bmi)));
   }
 }

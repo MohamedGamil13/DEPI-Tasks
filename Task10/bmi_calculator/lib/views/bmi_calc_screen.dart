@@ -44,7 +44,10 @@ class BmiCalcScreen extends StatelessWidget {
               const SizedBox(height: 20),
               const GenderWidget(),
               const SizedBox(height: 20),
-              CustomButton(onPressed: () => _onCalculate(context)),
+              CustomButton(
+                onPressed: () => _onCalculate(context),
+                text: 'Calculate',
+              ),
               const SizedBox(height: 20),
             ],
           ),
