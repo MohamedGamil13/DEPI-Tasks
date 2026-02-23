@@ -11,3 +11,11 @@ class NotesLoaded extends NotesState {
 
   NotesLoaded(this.notesList);
 }
+
+class NotesSearched extends NotesState {
+  final List<NoteModel> notesList;
+
+  NotesSearched({required this.notesList});
+}
+
+class NotesEmpty extends NotesState {}

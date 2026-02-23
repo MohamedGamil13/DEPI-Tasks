@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_to_do_app/views/completed_notes_screen.dart';
 import 'package:simple_to_do_app/views/pending_notes_screen.dart';
@@ -21,27 +22,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[currentIndex],
-
-      bottomNavigationBar: BottomNavigationBar(
-        key: widget.key,
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.black,
+        items: const <Widget>[
+          Icon(Icons.checklist, size: 30),
+          Icon(Icons.fact_check, size: 30),
+          Icon(Icons.done_all, size: 30),
+        ],
         onTap: (index) {
           setState(() {
             currentIndex = index;
           });
         },
-        selectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'All'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fact_check),
-            label: 'Pending',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.done_all),
-            label: 'Completed',
-          ),
-        ],
       ),
     );
   }
 }
+      // BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'All'),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.fact_check),
+      //       label: 'Pending',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.done_all),
+      //       label: 'Completed',
+      //     ),

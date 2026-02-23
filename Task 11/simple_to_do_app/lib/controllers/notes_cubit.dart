@@ -47,4 +47,25 @@ class NotesCubit extends Cubit<NotesState> {
     //   emit(NotesLoaded(category));
     // }
   }
+  void searchByTitle(String title) {
+    if (title.isEmpty) {
+      emit(NotesLoaded(List.from(_notesList)));
+      return;
+    }
+
+    List<NoteModel> targetNote = _notesList
+        .where(
+          (item) => item.title.toLowerCase().trim().startsWith(
+            title.trim().toLowerCase(),
+          ),
+        )
+        .toList();
+
+    if (targetNote.isEmpty) {
+      emit(NotesEmpty());
+      return;
+    }
+
+    emit(NotesSearched(notesList: targetNote));
+  }
 }

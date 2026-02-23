@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_to_do_app/controllers/notes_cubit.dart';
 import 'package:simple_to_do_app/views/add_note_screen.dart';
 import 'package:simple_to_do_app/views/widgets/custom_appbar.dart';
+import 'package:simple_to_do_app/views/widgets/custom_text_field.dart';
 import 'package:simple_to_do_app/views/widgets/notes_listview.dart';
 
 class HomeScreenBody extends StatelessWidget {
@@ -28,9 +29,20 @@ class HomeScreenBody extends StatelessWidget {
             ),
           ),
         ),
-
+        const CustomTextField(),
         BlocBuilder<NotesCubit, NotesState>(
           builder: (context, state) {
+            if (state is NotesEmpty) {
+              return const Center(
+                child: Text(
+                  "No notes found",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              );
+            }
+            if (state is NotesSearched) {
+              return Expanded(child: NotesListview(notesList: state.notesList));
+            }
             if (state is NotesLoaded && state.notesList.isNotEmpty) {
               return Expanded(child: NotesListview(notesList: state.notesList));
             }
