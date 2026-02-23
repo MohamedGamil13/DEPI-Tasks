@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_todo_app/controllers/notes_list_controller.dart';
-import 'package:simple_todo_app/views/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_to_do_app/controllers/notes_cubit.dart';
+import 'package:simple_to_do_app/views/home_screen.dart';
 
 void main() {
   runApp(const SimpleTodoAPP());
@@ -12,8 +12,8 @@ class SimpleTodoAPP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => NotesListController(),
+    return BlocProvider(
+      create: (context) => NotesCubit(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),

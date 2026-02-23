@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_todo_app/controllers/notes_list_controller.dart';
-import 'package:simple_todo_app/views/widgets/custom_appbar.dart';
-import 'package:simple_todo_app/views/widgets/notes_listview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_to_do_app/controllers/notes_cubit.dart';
+import 'package:simple_to_do_app/models/note_model.dart';
+import 'package:simple_to_do_app/views/widgets/custom_appbar.dart';
+import 'package:simple_to_do_app/views/widgets/notes_listview.dart';
 
 class PendingNotesScreen extends StatelessWidget {
   const PendingNotesScreen({super.key});
@@ -18,15 +19,22 @@ class PendingNotesScreen extends StatelessWidget {
             icon: Icon(Icons.alarm, color: Colors.white),
           ),
         ),
-        Consumer<NotesListController>(
-          builder: (BuildContext context, value, Widget? child) {
-            return Expanded(
-              child: NotesListview(
-                notesList: value.notesList
-                    .where((note) => !note.ischecked)
-                    .toList(),
-              ),
-            );
+        BlocBuilder<NotesCubit, NotesState>(
+          builder: (context, state) {
+            final List<NoteModel> pendingNotes = state is NotesLoaded
+                ? state.notesList.where((note) => !note.ischecked).toList()
+                : [];
+
+            if (pendingNotes.isEmpty) {
+              return const Center(
+                child: Text(
+                  "No pending tasks yet",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              );
+            }
+
+            return Expanded(child: NotesListview(notesList: pendingNotes));
           },
         ),
       ],

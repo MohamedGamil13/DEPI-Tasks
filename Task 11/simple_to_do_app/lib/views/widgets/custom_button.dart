@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_todo_app/controllers/notes_list_controller.dart';
-import 'package:simple_todo_app/models/note_model.dart';
+import 'package:simple_to_do_app/controllers/notes_cubit.dart';
+import 'package:simple_to_do_app/models/note_model.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -11,9 +11,11 @@ class CustomButton extends StatelessWidget {
     required this.dateController,
     required this.selectedCategory,
   });
+
   final TextEditingController titleController;
   final TextEditingController dateController;
   final NoteCategory selectedCategory;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,7 +30,10 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          context.read<NotesListController>().addNote(
+          if (titleController.text.isEmpty || dateController.text.isEmpty)
+            return;
+
+          context.read<NotesCubit>().addNote(
             NoteModel(
               title: titleController.text,
               subtitle: '12:42 PM',
@@ -36,6 +41,7 @@ class CustomButton extends StatelessWidget {
               category: selectedCategory,
             ),
           );
+
           Navigator.pop(context);
         },
         child: const Text("Save"),

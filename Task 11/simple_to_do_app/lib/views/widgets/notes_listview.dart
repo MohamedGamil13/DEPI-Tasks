@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_todo_app/models/note_model.dart';
-import 'package:simple_todo_app/views/widgets/note_listtile.dart';
+import 'package:simple_to_do_app/models/note_model.dart';
+import 'package:simple_to_do_app/views/widgets/note_listtile.dart';
 
 class NotesListview extends StatelessWidget {
   const NotesListview({super.key, required this.notesList});

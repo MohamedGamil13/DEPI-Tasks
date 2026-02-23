@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simple_todo_app/views/completed_notes_screen.dart';
-import 'package:simple_todo_app/views/pending_notes_screen.dart';
-import 'package:simple_todo_app/views/widgets/home_screen_body.dart';
+import 'package:simple_to_do_app/views/completed_notes_screen.dart';
+import 'package:simple_to_do_app/views/pending_notes_screen.dart';
+import 'package:simple_to_do_app/views/widgets/home_screen_body.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

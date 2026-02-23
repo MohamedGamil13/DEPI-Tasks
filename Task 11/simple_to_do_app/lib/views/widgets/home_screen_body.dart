@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_todo_app/controllers/notes_list_controller.dart';
-import 'package:simple_todo_app/views/add_note_screen.dart';
-import 'package:simple_todo_app/views/widgets/custom_appbar.dart';
-import 'package:simple_todo_app/views/widgets/notes_listview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_to_do_app/controllers/notes_cubit.dart';
+import 'package:simple_to_do_app/views/add_note_screen.dart';
+import 'package:simple_to_do_app/views/widgets/custom_appbar.dart';
+import 'package:simple_to_do_app/views/widgets/notes_listview.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -20,8 +20,8 @@ class HomeScreenBody extends StatelessWidget {
             onIconPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ChangeNotifierProvider.value(
-                  value: context.read<NotesListController>(),
+                builder: (context) => BlocProvider.value(
+                  value: context.read<NotesCubit>(),
                   child: const AddNoteScreen(),
                 ),
               ),
@@ -29,17 +29,17 @@ class HomeScreenBody extends StatelessWidget {
           ),
         ),
 
-        Consumer<NotesListController>(
-          builder: (BuildContext context, value, Widget? child) {
-            if (value.notesList.isEmpty) {
-              return const Center(
-                child: Text(
-                  "No Note yet",
-                  style: TextStyle(fontSize: 15, fontWeight: .bold),
-                ),
-              );
+        BlocBuilder<NotesCubit, NotesState>(
+          builder: (context, state) {
+            if (state is NotesLoaded && state.notesList.isNotEmpty) {
+              return Expanded(child: NotesListview(notesList: state.notesList));
             }
-            return Expanded(child: NotesListview(notesList: value.notesList));
+            return const Center(
+              child: Text(
+                "No Notes yet",
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            );
           },
         ),
       ],

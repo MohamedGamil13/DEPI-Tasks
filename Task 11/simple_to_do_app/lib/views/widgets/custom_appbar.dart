@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_todo_app/views/widgets/title_iconbutton.dart';
+import 'package:simple_to_do_app/views/widgets/title_iconbutton.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({

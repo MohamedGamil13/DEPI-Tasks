@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_todo_app/controllers/notes_list_controller.dart';
-import 'package:simple_todo_app/models/note_model.dart';
-import 'package:simple_todo_app/views/widgets/custom_button.dart';
+import 'package:simple_to_do_app/models/note_model.dart';
+import 'package:simple_to_do_app/views/widgets/custom_button.dart';
 
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({super.key});
@@ -86,10 +84,10 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   );
                 }).toList(),
                 onChanged: (value) {
-                  context.read<NotesListController>().selectCategory(
-                    value!,
-                    selectedCategory,
-                  );
+                  // Update selectedCategory locally with setState
+                  setState(() {
+                    selectedCategory = value!;
+                  });
                 },
               ),
 
@@ -104,7 +102,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   suffixIcon: Icon(Icons.calendar_today_outlined),
                 ),
               ),
+
               const Spacer(),
+
               CustomButton(
                 titleController: titleController,
                 dateController: dateController,
