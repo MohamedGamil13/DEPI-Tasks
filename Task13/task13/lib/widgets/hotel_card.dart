@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task13/widgets/star_rating.dart';
 
 class HotelCard extends StatelessWidget {
   final bool isExpanded;
@@ -37,10 +38,8 @@ class HotelCard extends StatelessWidget {
               child: Image.asset(
                 'assets/pic1.png',
                 height: 180,
-                width: double.infinity,
+                width: .infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    _PlaceholderHotelImage(),
               ),
             ),
             // Expanded content
@@ -80,7 +79,7 @@ class _ExpandedHotelDetails extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              _StarRating(rating: 3.5),
+              StarRating(rating: 3.5),
             ],
           ),
           const SizedBox(height: 4),
@@ -92,58 +91,6 @@ class _ExpandedHotelDetails extends StatelessWidget {
           const Text(
             'Deluxe King Room a to din l Ansor',
             style: TextStyle(fontSize: 14, color: Colors.black54),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StarRating extends StatelessWidget {
-  final double rating;
-  const _StarRating({required this.rating});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(5, (index) {
-        final full = index < rating.floor();
-        final half = !full && index < rating;
-        return Icon(
-          full
-              ? Icons.star
-              : half
-              ? Icons.star_half
-              : Icons.star_border,
-          color: const Color(0xFFFFC107),
-          size: 18,
-        );
-      }),
-    );
-  }
-}
-
-class _PlaceholderHotelImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 180,
-      width: double.infinity,
-      color: const Color(0xFF2C3E50),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Icon(Icons.business, color: Colors.white70, size: 48),
-          SizedBox(height: 8),
-          Text(
-            'HOTEL',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 4,
-            ),
           ),
         ],
       ),
