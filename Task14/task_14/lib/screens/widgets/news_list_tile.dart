@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:task_14/models/news_model.dart';
 import 'package:task_14/screens/widgets/news_image.dart';
 
 class NewsListTile extends StatelessWidget {
-  const NewsListTile({super.key});
-
+  const NewsListTile({super.key, required this.newsModel});
+  final NewsModel newsModel;
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
-      title: Text('Title'),
-      subtitle: Text('data'),
-      trailing: NewsImage(
-        imageUrl:
-            'https://tse3.mm.bing.net/th/id/OIP.XumpG3c_dzDyL7TIgMlcYgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListTile(
+        title: Text(newsModel.title),
+        subtitle: Text(newsModel.subtitle),
+        trailing: NewsImage(imageUrl: newsModel.image),
       ),
     );
   }

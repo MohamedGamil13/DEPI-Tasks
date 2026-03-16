@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_14/screens/widgets/news_image.dart';
+import 'package:task_14/models/news_model.dart';
+import 'package:task_14/screens/widgets/news_list_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,12 +19,13 @@ class HomeScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: 100,
         itemBuilder: (BuildContext context, int index) {
-          return const ListTile(
-            title: Text('Title'),
-            subtitle: Text('data'),
-            trailing: NewsImage(
-              imageUrl:
-                  'https://tse3.mm.bing.net/th/id/OIP.XumpG3c_dzDyL7TIgMlcYgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+          return NewsListTile(
+            newsModel: NewsModel(
+              title: 'title',
+              subtitle: 'subtitle',
+              image:
+                  'https://images.pexels.com/photos/9765160/pexels-photo-9765160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              author: '',
             ),
           );
         },
