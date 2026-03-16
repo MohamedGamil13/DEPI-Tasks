@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_14/cubit/homepage_cubit.dart';
+import 'package:task_14/screens/news_details_screen.dart';
 import 'package:task_14/screens/widgets/news_list_tile.dart';
 
 class HomeScreenBody extends StatelessWidget {
@@ -17,7 +18,23 @@ class HomeScreenBody extends StatelessWidget {
           return ListView.builder(
             itemCount: state.articles.length,
             itemBuilder: (BuildContext context, int index) {
-              return NewsListTile(newsModel: state.articles[index]);
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewsDetailsScreen(
+                        article: state.articles[index],
+                        heroTag: index,
+                      ),
+                    ),
+                  );
+                },
+                child: NewsListTile(
+                  newsModel: state.articles[index],
+                  herotag: index,
+                ),
+              );
             },
           );
         }

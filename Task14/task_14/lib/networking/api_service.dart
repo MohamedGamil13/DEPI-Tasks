@@ -9,6 +9,6 @@ class ApiService {
       'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=46a8d2b919634add9bb6406d0a3bc1ce',
     );
     result = NewsModel.fromJson(respone.data);
-    return result.articles!;
+    return result.articles ?? [];
   }
 }

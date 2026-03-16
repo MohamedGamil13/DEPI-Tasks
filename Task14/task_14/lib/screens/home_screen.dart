@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         title: const Text(
           'News',
           style: TextStyle(fontWeight: .w600, fontSize: 32),

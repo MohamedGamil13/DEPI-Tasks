@@ -3,8 +3,13 @@ import 'package:task_14/models/news_model.dart';
 import 'package:task_14/screens/widgets/news_image.dart';
 
 class NewsListTile extends StatelessWidget {
-  const NewsListTile({super.key, required this.newsModel});
+  const NewsListTile({
+    super.key,
+    required this.newsModel,
+    required this.herotag,
+  });
   final Article newsModel;
+  final int herotag;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,10 +21,9 @@ class NewsListTile extends StatelessWidget {
           overflow: .ellipsis,
         ),
         subtitle: Text(newsModel.content!, maxLines: 2, overflow: .ellipsis),
-        trailing: NewsImage(
-          imageUrl:
-              newsModel.urlToImage ??
-              "https://th.bing.com/th?id=OIF.c9pLH%2bZSKu%2b%2fM7j4DU%2bxPw&rs=1&pid=ImgDetMain&o=7&rm=3",
+        trailing: Hero(
+          tag: '$herotag',
+          child: NewsImage(imageUrl: newsModel.urlToImage),
         ),
       ),
     );
