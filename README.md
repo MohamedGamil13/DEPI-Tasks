@@ -20,7 +20,7 @@ depi-tasks/
 ├── task_02/
 ├── task_03/
 │   ...
-└── task_14/
+└
 ```
 
 > Each folder is a standalone Flutter project. Tasks are not related to each other.
