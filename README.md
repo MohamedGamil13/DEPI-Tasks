@@ -29,7 +29,7 @@ depi-tasks/
 
 ## 🗂️ Tasks
 
-This repo currently contains **14+ tasks** and is still growing as the program progresses.
+This repo currently contains **tasks** and is still growing as the program progresses.
 
 Examples include:
 - Food App
@@ -52,12 +52,12 @@ To run any task locally:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/MohamedGamil13/<repo-name>.git
+   git clone https://github.com/MohamedGamil13/DEPI-Tasks.git
    ```
 
 2. Navigate to the task folder
    ```bash
-   cd task_01
+   cd Task1
    ```
 
 3. Install dependencies
