@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:test_task/controller/bmi_bloc/bmi_bloc.dart';
 import 'package:test_task/models/user_model.dart';
-
-part 'bmi_state.dart';
 
 class BmiCubit extends Cubit<BmiState> {
   BmiCubit()

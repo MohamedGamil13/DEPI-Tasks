@@ -1,4 +1,4 @@
-part of 'bmi_cubit.dart';
+part of 'bmi_bloc.dart';
 
 class BmiState extends Equatable {
   final UserModel userModel;
