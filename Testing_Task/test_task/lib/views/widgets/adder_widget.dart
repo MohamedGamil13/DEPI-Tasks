@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/constants.dart';
-import 'package:test_task/controller/bmi_cubit.dart';
+import 'package:test_task/controller/bmi_bloc/bmi_bloc.dart';
 
 class AdderWidget extends StatelessWidget {
   const AdderWidget({super.key, required this.title, required this.isAge});
@@ -11,14 +11,14 @@ class AdderWidget extends StatelessWidget {
 
   void _onAdd(BuildContext context) {
     isAge
-        ? context.read<BmiCubit>().addAge()
-        : context.read<BmiCubit>().addWeight();
+        ? context.read<BmiBloc>().add(AddAge())
+        : context.read<BmiBloc>().add(AddWeight());
   }
 
   void _onSub(BuildContext context) {
     isAge
-        ? context.read<BmiCubit>().subAge()
-        : context.read<BmiCubit>().subWeight();
+        ? context.read<BmiBloc>().add(SubAge())
+        : context.read<BmiBloc>().add(SubWeight());
   }
 
   @override
@@ -41,7 +41,7 @@ class AdderWidget extends StatelessWidget {
               color: AppContants.kbuttonColor,
             ),
           ),
-          BlocBuilder<BmiCubit, BmiState>(
+          BlocBuilder<BmiBloc, BmiState>(
             buildWhen: (previous, current) => isAge
                 ? previous.userModel.age != current.userModel.age
                 : previous.userModel.weightKG != current.userModel.weightKG,

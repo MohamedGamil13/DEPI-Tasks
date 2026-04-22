@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/constants.dart';
-import 'package:test_task/controller/bmi_cubit.dart';
+import 'package:test_task/controller/bmi_bloc/bmi_bloc.dart';
 import 'package:test_task/models/user_model.dart';
 
 class GenderToggle extends StatelessWidget {
@@ -10,7 +10,7 @@ class GenderToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.read<BmiCubit>().toggleGender(),
+      onTap: () => context.read<BmiBloc>().add(ToggleGender()),
       child: Container(
         width: 220,
         height: 60,
@@ -19,7 +19,7 @@ class GenderToggle extends StatelessWidget {
           color: const Color(0xffF4F3FF),
           borderRadius: BorderRadius.circular(40),
         ),
-        child: BlocBuilder<BmiCubit, BmiState>(
+        child: BlocBuilder<BmiBloc, BmiState>(
           buildWhen: (previous, current) =>
               previous.userModel.gender != current.userModel.gender,
           builder: (context, state) {

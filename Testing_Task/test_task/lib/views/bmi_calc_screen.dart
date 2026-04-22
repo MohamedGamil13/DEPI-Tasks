@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_task/constants.dart';
-import 'package:test_task/controller/bmi_cubit.dart';
+import 'package:test_task/controller/bmi_bloc/bmi_bloc.dart';
 import 'package:test_task/views/bmi_result_screen.dart';
 import 'package:test_task/views/widgets/age_height_row.dart';
 import 'package:test_task/views/widgets/custom_button.dart';
@@ -12,7 +12,7 @@ class BmiCalcScreen extends StatelessWidget {
   const BmiCalcScreen({super.key});
 
   void _onCalculate(BuildContext context) {
-    context.read<BmiCubit>().calculateBMI();
+    context.read<BmiBloc>().add(CalculateBMI());
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const BmiResultScreen()),
